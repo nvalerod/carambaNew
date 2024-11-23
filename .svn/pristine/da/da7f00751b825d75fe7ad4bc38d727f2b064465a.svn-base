@@ -1,0 +1,21 @@
+<input type="button" id="colorSelector1" value=" Color ">
+<script>
+$('#colorSelector1').ColorPicker({
+	color: '#0000ff',
+	onShow: function (colpkr) {
+		$(colpkr).fadeIn(500);
+		return false;
+	},
+	onHide: function (colpkr) {
+		$(colpkr).fadeOut(500);
+		return false;
+	},
+	onChange: function (hsb, hex, rgb) {
+ 
+		$('body').css('background', '#' + hex);
+		$("#hex_color1").val('#'+hex);
+		$("#resultado1").val(rgb2hex($('#prueba').css('background')));
+	}
+});
+ 
+</script>

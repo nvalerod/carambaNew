@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% load extras %}
+{% load static %}
+
+{% block css %}
+    <style>
+        .ratingGusto{
+            font-size:0;
+            white-space:nowrap;
+            display:inline-block;
+            width:250px;
+            height:50px;
+            overflow:hidden;
+            position:relative;
+            background:
+                    url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+            background-size: contain;
+            i{
+                opacity: 0;
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 20%;
+                z-index: 1;
+                background:
+                        url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+                background-size: contain;
+            }
+            input{
+                -moz-appearance:none;
+                -webkit-appearance:none;
+                opacity: 0;
+                display:inline-block;
+                width: 20%;
+                height: 100%;
+                margin:0;
+                padding:0;
+                z-index: 2;
+                position: relative;
+                &:hover + i,
+                &:checked + i{
+                    opacity:1;
+                }
+            }
+            i ~ i{
+                width: 40%;
+            }
+            i ~ i ~ i{
+                width: 60%;
+            }
+            i ~ i ~ i ~ i{
+                width: 80%;
+            }
+            i ~ i ~ i ~ i ~ i{
+                width: 100%;
+            }
+        }
+
+        .ratingDificultad{
+            font-size:0;
+            white-space:nowrap;
+            display:inline-block;
+            width:250px;
+            height:50px;
+            overflow:hidden;
+            position:relative;
+            background:
+                    url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+            background-size: contain;
+            i{
+                opacity: 0;
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 20%;
+                z-index: 1;
+                background:
+                        url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+                background-size: contain;
+            }
+            input{
+                -moz-appearance:none;
+                -webkit-appearance:none;
+                opacity: 0;
+                display:inline-block;
+                width: 20%;
+                height: 100%;
+                margin:0;
+                padding:0;
+                z-index: 2;
+                position: relative;
+                &:hover + i,
+                &:checked + i{
+                    opacity:1;
+                }
+            }
+            i ~ i{
+                width: 40%;
+            }
+            i ~ i ~ i{
+                width: 60%;
+            }
+            i ~ i ~ i ~ i{
+                width: 80%;
+            }
+            i ~ i ~ i ~ i ~ i{
+                width: 100%;
+            }
+        }
+
+    </style>
+    <style>
+        .contenido {
+            filter: blur(5px);
+            transition: filter 0.5s ease;
+        }
+
+        .contenido.accepted {
+            filter: none;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-xl-3 col-xxl-4 col-lg-4">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <img class="img-fluid" src="images/courses/pic1.jpg" alt="">
+                        <div class="card-body">
+                            <h4 class="mb-0">{{ resolver.nombre}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card overflow-hidden">
+                        <div class="card-header">
+                            <h4 class="text-primary mb-4">Más información</h4>
+                        </div>
+                        <div class="card-body pb-0">
+                            {#                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>#}
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex px-0 justify-content-between">
+                                    <strong>Publicado por:</strong>
+                                    <span class="mb-0">{{ resolver.persona}}</span>
+                                </li>
+                                <li class="list-group-item d-flex px-0 justify-content-between">
+                                    <strong>Fecha de publicación</strong>
+                                    <span class="mb-0">{{ resolver.fecha_creacion}}</span>
+                                </li>
+
+                                <li class="list-group-item d-flex px-0 justify-content-between">
+                                    <strong>Calificación</strong>
+                                    <span class="mb-0">5</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="card-footer pt-0 pb-0 text-center">
+                            <div class="row">
+                                <div class="col-4 pt-3 pb-3 border-end">
+                                    <h3 id="hour" class="mb-1 text-primary">00</h3>
+                                    <span>Hora</span>
+                                </div>
+                                <div class="col-4 pt-3 pb-3 border-end">
+                                    <h3 id="minute" class="mb-1 text-primary">00</h3>
+                                    <span>Minutos</span>
+                                </div>
+                                <div class="col-4 pt-3 pb-3">
+                                    <h3 id="second" class="mb-1 text-primary">00</h3>
+                                    <span>Segundos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="btn btn-primary" id="comenzar" onclick="abrir()">Comenzar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-xxl-8 col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-primary mb-4">Descripción del ejercicio</h4>
+                    <p class="contenido">
+                        {{ resolver.descripcion }}
+                    </p>
+
+                    <h4 class="text-primary">Contenido</h4>
+
+                    <div class="profile-skills pt-2 border-bottom-1 pb-2">
+                        {% for re in resolver.contenido.all %}
+                            <a href="javascript:void(0);" class="badge badge-primary light"><i class="flag-icon flag-icon-us"></i> {{ re.nombre }}</a>
+                        {% endfor %}
+
+                        <hr>
+
+                        <form enctype="multipart/form-data" autocomplete="off" method="post">
+                            <input type="text" class="form-control" hidden name="pet" value="{{ pet }}">
+                            <input type="text" class="form-control" hidden name="id" value="{{ reg }}">
+                            {% csrf_token %}
+
+                            <div class="row gy-4">
+                                <div class="form-group col-md-12" id="grupo_{{ form.archivo.label }}" >
+                                    {% if form.archivo.field.required %} <span style="color: red">*</span> {% endif %}
+                                    <label for="id_{{ form.archivo.name }}">{{ form.archivo.label }}</label>
+                                    {{ form.archivo }}
+                                    <div class="invalid-feedback" id="errorMessage{{ form.archivo.name }}"></div>
+                                </div>
+
+                                <div class="form-group col-md-6" id="grupo_{{ form.duracion.label }}" hidden="hidden">
+                                    {% if form.duracion.field.required %} <span style="color: red">*</span> {% endif %}
+                                    <label for="id_{{ form.duracion.name }}">{{ form.duracion.label }}</label>
+                                    {{ form.duracion }}
+                                    <div class="invalid-feedback" id="errorMessage{{ form.duracion.name }}"></div>
+                                </div>
+                                <div class="form-group col-md-6" id="grupo_{{ form.ejercicio.label }}" hidden="hidden">
+                                    {% if form.ejercicio.field.required %} <span style="color: red">*</span> {% endif %}
+                                    <label for="id_{{ form.ejercicio.name }}">{{ form.ejercicio.label }}</label>
+                                    {{ form.ejercicio }}
+                                    <div class="invalid-feedback" id="errorMessage{{ form.ejercicio.name }}"></div>
+                                </div>
+                                <div class="form-group col-md-6" id="grupo_{{ form.gusto.label }}" >
+                                    {% if form.gusto.field.required %} <span style="color: red">*</span> {% endif %}
+                                    <label for="id_{{ form.gusto.name }}">{{ form.gusto.label }}</label> <br>
+                                    <span class="ratingGusto">
+                                      <input type="radio" name="gusto" value="1"><i></i>
+                                      <input type="radio" name="gusto" value="2"><i></i>
+                                      <input type="radio" name="gusto" value="3"><i></i>
+                                      <input type="radio" name="gusto" value="4"><i></i>
+                                      <input type="radio" name="gusto" value="5"><i></i>
+                                    </span>
+                                    <div class="invalid-feedback" id="errorMessage{{ form.gusto.name }}"></div>
+                                </div>
+
+                                <div class="form-group col-md-6" id="grupo_{{ form.dificultad.label }}" >
+                                    {% if form.dificultad.field.required %} <span style="color: red">*</span> {% endif %}
+                                    <label for="id_{{ form.dificultad.name }}">{{ form.dificultad.label }}</label> <br>
+                                    <span class="ratingDificultad">
+                                  <input type="radio" name="dificultad" value="1"><i></i>
+                                  <input type="radio" name="dificultad" value="2"><i></i>
+                                  <input type="radio" name="dificultad" value="3"><i></i>
+                                  <input type="radio" name="dificultad" value="4"><i></i>
+                                  <input type="radio" name="dificultad" value="5"><i></i>
+                                </span>
+                                    <div class="invalid-feedback" id="errorMessage{{ form.dificultad.name }}"></div>
+                                </div>
+                            </div>
+
+                            <br><br>
+                            <div class="text-right">
+                                <button id="submit" type="submit" class="btn btn-primary">Guardar</button>
+                                <a href="javascript:history.back()"  class="btn btn-danger" type="button">Cancelar</a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        function abrir() {
+            w=800;
+            h=600;
+            if (window.screen) {
+                w = window.screen.availWidth;
+                h = window.screen.availHeight;
+                h= (h*90)/100;
+                w= (w*75)/100;
+                w1= (w*24)/100;
+            }
+            open('https://scratch.mit.edu/projects/editor/?tip_bar=getStarted','newwin','width='+w+',height='+h+',top=0,left=0');
+
+        }
+
+        var tiempo = {
+            hora: 0,
+            minuto: 0,
+            segundo: 0
+        };
+
+        var tiempo_corriendo = null;
+
+        $("#comenzar").click(function(){
+            if ( $(this).text() == 'Comenzar' ) {
+                $(this).text('Detener');
+                tiempo_corriendo = setInterval(function(){
+                    // Segundos
+                    tiempo.segundo++;
+                    if(tiempo.segundo >= 60){
+                        tiempo.segundo = 0;
+                        tiempo.minuto++;
+                    }
+                    // Minutos
+                    if(tiempo.minuto >= 60) {
+                        tiempo.minuto = 0;
+                        tiempo.hora++;
+                    }
+
+                    $("#hour").text(tiempo.hora < 10 ? '0' + tiempo.hora : tiempo.hora);
+                    $("#minute").text(tiempo.minuto < 10 ? '0' + tiempo.minuto : tiempo.minuto);
+                    $("#second").text(tiempo.segundo < 10 ? '0' + tiempo.segundo : tiempo.segundo);
+                    $("#id_duracion").val(document.getElementById("hour").textContent+":"+document.getElementById("minute").textContent+":"+document.getElementById("second").textContent);
+
+                }, 1000);
+            }
+            else {
+                $(this).text('Comenzar');
+                clearInterval(tiempo_corriendo);
+            }
+            $('#ejercicio').show();
+            $('#submit').show();
+            $("#comenzar").hide();
+        })
+
+        $( document ).ready(function() {
+            $('#submit').hide()
+        });
+
+        $( document ).on( 'click', '#comenzar', function(){
+            $(".contenido" ).addClass( "accepted" );
+        });
+
+    </script>
+{% endblock %}

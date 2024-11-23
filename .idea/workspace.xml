@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cbd98b67-f937-4201-83a2-4ebde9bc2834" name="Changes" comment="cambio en el formulario de registro">
+      <change beforePath="$PROJECT_DIR$/caramba/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/caramba/settings.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2iipVKBFCaElKPYwe9WWGnSxmiJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nestorvalerodiaz/Desktop/appsWeb/caramba/templates/vistas&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/vistas" />
+      <recent name="$PROJECT_DIR$/recomendacion" />
+      <recent name="$PROJECT_DIR$/static/libs/editor" />
+      <recent name="$PROJECT_DIR$/static/libs" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="caramba" type="Python.DjangoServer" factoryName="Django server">
+      <module name="caramba" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="caramba.settings" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3" />
+      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>$USER_HOME$/.subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="$PROJECT_DIR$" />
+          <option name="myCopyRoot" value="$PROJECT_DIR$" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="$PROJECT_DIR$" />
+          <option name="myCopyRoot" value="$PROJECT_DIR$" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cbd98b67-f937-4201-83a2-4ebde9bc2834" name="Changes" comment="" />
+      <created>1719983275623</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1719983275623</updated>
+      <workItem from="1719983279799" duration="406000" />
+      <workItem from="1719983706607" duration="763000" />
+      <workItem from="1719985032867" duration="2803000" />
+      <workItem from="1719988179105" duration="3930000" />
+      <workItem from="1720112672502" duration="628000" />
+      <workItem from="1720581678294" duration="1476000" />
+      <workItem from="1721005932095" duration="3000" />
+      <workItem from="1724641219036" duration="295000" />
+      <workItem from="1724643286037" duration="2283000" />
+      <workItem from="1725751087881" duration="925000" />
+      <workItem from="1725752404377" duration="1652000" />
+      <workItem from="1725770481252" duration="4609000" />
+      <workItem from="1725777361163" duration="2839000" />
+      <workItem from="1725781247579" duration="629000" />
+      <workItem from="1725853326544" duration="2612000" />
+      <workItem from="1726145931734" duration="1516000" />
+      <workItem from="1726196036155" duration="2226000" />
+      <workItem from="1726198301186" duration="202000" />
+      <workItem from="1726656741534" duration="1408000" />
+      <workItem from="1727829083447" duration="2528000" />
+      <workItem from="1727839349522" duration="743000" />
+      <workItem from="1727840881470" duration="1886000" />
+      <workItem from="1729172264965" duration="1099000" />
+      <workItem from="1729246344639" duration="2060000" />
+      <workItem from="1731633512315" duration="410000" />
+      <workItem from="1731641507739" duration="8000" />
+      <workItem from="1731641533621" duration="3000" />
+      <workItem from="1732394667609" duration="5000" />
+    </task>
+    <task id="LOCAL-00001" summary="sin limitaciones en la longitud del texto del ejercicio">
+      <option name="closed" value="true" />
+      <created>1719985465062</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1719985465062</updated>
+    </task>
+    <task id="LOCAL-00002" summary="arreglo en crear ejercicio con contenido de selección  multiple">
+      <option name="closed" value="true" />
+      <created>1719985917035</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1719985917035</updated>
+    </task>
+    <task id="LOCAL-00003" summary="arreglo en crear ejercicio con contenido de selección  multiple">
+      <option name="closed" value="true" />
+      <created>1719987359084</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1719987359084</updated>
+    </task>
+    <task id="LOCAL-00004" summary="arreglo en crear ejercicio con contenido de selección  multiple">
+      <option name="closed" value="true" />
+      <created>1719988714049</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1719988714049</updated>
+    </task>
+    <task id="LOCAL-00005" summary="arreglo en crear ejercicio con contenido de selección  multiple">
+      <option name="closed" value="true" />
+      <created>1719989267029</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719989267029</updated>
+    </task>
+    <task id="LOCAL-00006" summary="visualizacion de otros ejercicios">
+      <option name="closed" value="true" />
+      <created>1719990807119</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1719990807119</updated>
+    </task>
+    <task id="LOCAL-00007" summary="visualizacion de otros ejercicios">
+      <option name="closed" value="true" />
+      <created>1719991955034</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1719991955034</updated>
+    </task>
+    <task id="LOCAL-00008" summary="visualizacion de otros ejercicios">
+      <option name="closed" value="true" />
+      <created>1719992298035</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1719992298035</updated>
+    </task>
+    <task id="LOCAL-00009" summary="mejoras en el registro de usuario">
+      <option name="closed" value="true" />
+      <created>1724644586051</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1724644586051</updated>
+    </task>
+    <task id="LOCAL-00010" summary="mejoras en el registro de usuario">
+      <option name="closed" value="true" />
+      <created>1724644781036</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1724644781036</updated>
+    </task>
+    <task id="LOCAL-00011" summary="logo en login">
+      <option name="closed" value="true" />
+      <created>1725751689054</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1725751689054</updated>
+    </task>
+    <task id="LOCAL-00012" summary="logo menu">
+      <option name="closed" value="true" />
+      <created>1725751988035</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1725751988035</updated>
+    </task>
+    <task id="LOCAL-00013" summary="logo menu">
+      <option name="closed" value="true" />
+      <created>1725753540048</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725753540048</updated>
+    </task>
+    <task id="LOCAL-00014" summary="algoritmo de recomendacion con panda">
+      <option name="closed" value="true" />
+      <created>1725779196051</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1725779196051</updated>
+    </task>
+    <task id="LOCAL-00015" summary="algoritmo de recomendacion con panda">
+      <option name="closed" value="true" />
+      <created>1725854665052</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1725854665053</updated>
+    </task>
+    <task id="LOCAL-00016" summary="mejora de diseño en la presentacion de ejercicios a recomendar">
+      <option name="closed" value="true" />
+      <created>1725855733030</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1725855733030</updated>
+    </task>
+    <task id="LOCAL-00017" summary="configuracion de sitio">
+      <option name="closed" value="true" />
+      <created>1726146710051</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1726146710051</updated>
+    </task>
+    <task id="LOCAL-00018" summary="configuracion de mi perfil">
+      <option name="closed" value="true" />
+      <created>1726147295038</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1726147295038</updated>
+    </task>
+    <task id="LOCAL-00019" summary="foto de perfil">
+      <option name="closed" value="true" />
+      <created>1726196933049</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1726196933049</updated>
+    </task>
+    <task id="LOCAL-00020" summary="pantalla de perfiles">
+      <option name="closed" value="true" />
+      <created>1726197799042</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1726197799042</updated>
+    </task>
+    <task id="LOCAL-00021" summary="quitar botones sin uso">
+      <option name="closed" value="true" />
+      <created>1726198193038</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1726198193038</updated>
+    </task>
+    <task id="LOCAL-00022" summary="logo de imagen de usuario">
+      <option name="closed" value="true" />
+      <created>1726198377051</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1726198377051</updated>
+    </task>
+    <task id="LOCAL-00023" summary="cambio en el formulario de registro">
+      <option name="closed" value="true" />
+      <created>1726657914054</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1726657914054</updated>
+    </task>
+    <task id="LOCAL-00024" summary="cambio en el modelo presentacion de datos en self">
+      <option name="closed" value="true" />
+      <created>1727841771046</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1727841771046</updated>
+    </task>
+    <task id="LOCAL-00025" summary="quitar validacion de correo obligatorio en persona">
+      <option name="closed" value="true" />
+      <created>1727843245127</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1727843245129</updated>
+    </task>
+    <task id="LOCAL-00026" summary="apartado de otros ejercicios">
+      <option name="closed" value="true" />
+      <created>1729247847039</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1729247847039</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="sin limitaciones en la longitud del texto del ejercicio" />
+    <MESSAGE value="arreglo en crear ejercicio con contenido de selección  multiple" />
+    <MESSAGE value="visualizacion de otros ejercicios" />
+    <MESSAGE value="mejoras en el registro de usuario" />
+    <MESSAGE value="logo en login" />
+    <MESSAGE value="logo menu" />
+    <MESSAGE value="algoritmo de recomendacion con panda" />
+    <MESSAGE value="mejora de diseño en la presentacion de ejercicios a recomendar" />
+    <MESSAGE value="configuracion de sitio" />
+    <MESSAGE value="foto de perfil" />
+    <MESSAGE value="pantalla de perfiles" />
+    <MESSAGE value="quitar botones sin uso" />
+    <MESSAGE value="logo de imagen de usuario" />
+    <MESSAGE value="configuracion de mi perfil" />
+    <MESSAGE value="cambio en el modelo presentacion de datos en self" />
+    <MESSAGE value="quitar validacion de correo obligatorio en persona" />
+    <MESSAGE value="cambio en el formulario de registro" />
+    <MESSAGE value="apartado de otros ejercicios" />
+    <option name="LAST_COMMIT_MESSAGE" value="apartado de otros ejercicios" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/recomendacion/sitio.py</url>
+          <line>167</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/recomendacion/miperfil.py</url>
+          <line>122</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/recomendacion/ejercicios.py</url>
+          <line>181</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/recomendacion/comenzar.py</url>
+          <line>185</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

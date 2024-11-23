@@ -1,0 +1,22 @@
+{% extends 'formsbase.html' %}
+{% load static %}
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            if( $('#id_es_principal').is(':checked') ) {
+                $('#id_principal').attr("disabled", true);
+                $('#id_principal').prop('selectedIndex', 0);
+            }else {
+                $('#id_principal').attr("disabled", false);
+            }
+        });
+        $("#id_es_principal").change(function() {
+            if(this.checked) {
+                $('#id_principal').attr("disabled", true);
+                $('#id_principal').prop('selectedIndex', 0);
+            }else {
+                $('#id_principal').attr("disabled", false);
+            }
+        });
+    </script>
+{% endblock %}

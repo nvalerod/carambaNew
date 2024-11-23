@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-duallistbox.css' %}">
+
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">{{ formTitulo }}</h4>
+                </div><!-- end card header -->
+                <div class="card-body">
+                    <form enctype="multipart/form-data" autocomplete="off" method="post">
+                        <input type="text" class="form-control" hidden name="pet" value="{{ pet }}">
+                        <input type="text" class="form-control" hidden name="id" value="{{ reg }}">
+                        {% csrf_token %}
+
+                        <div class="row gy-4">
+                            {% for campo in form.visible_fields %}
+                                <div class="form-group {% if campo.field.widget.attrs.col %} col-md-{{ campo.field.widget.attrs.col }} {% else %} col-md-12 {% endif %}" id="grupo_{{ campo.name }}" >
+                                    {% if campo.field.required %} <span style="color: red">*</span> {% endif %}<label for="id_{{ campo.name }}">{{ campo.label }}</label>
+                                    {{ campo }}
+                                    <div class="invalid-feedback" id="errorMessage{{ campo.name }}"></div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {% block extra_field %}
+
+                        {% endblock %}
+                        <br><br>
+                        <div class="text-right">
+                            <button id="submit" type="submit" class="btn btn-primary">Guardar</button>
+                            <a href="javascript:history.back()" class="btn btn-danger" type="button">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+
+    <script>
+        var demo2 = $('.dual').bootstrapDualListbox({
+            nonSelectedListLabel: 'No seleccionados',
+            selectedListLabel: 'Seleccionados',
+            preserveSelectionOnMove: 'moved',
+            moveOnSelect: false,
+            {#nonSelectedFilter: 'ion ([7-9]|[1][0-2])'#}
+        });
+    </script>
+{% endblock %}

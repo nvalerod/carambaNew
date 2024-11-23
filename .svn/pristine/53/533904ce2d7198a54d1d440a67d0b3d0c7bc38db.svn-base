@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-duallistbox.css' %}">
+
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">{{ formTitulo }}</h4>
+                </div><!-- end card header -->
+                <div class="card-body">
+                    <form enctype="multipart/form-data" autocomplete="off" method="post">
+                        <input type="text" class="form-control" hidden name="pet" value="{{ pet }}">
+                        <input type="text" class="form-control" hidden name="id" value="{{ reg }}">
+                        {% csrf_token %}
+
+                        <div class="row gy-4">
+                            {% for campo in form.visible_fields %}
+                                <div class="form-group {% if campo.field.widget.attrs.col %} col-md-{{ campo.field.widget.attrs.col }} {% else %} col-md-12 {% endif %}" id="grupo_{{ campo.name }}" >
+                                    {% if campo.field.required %} <span style="color: red">*</span> {% endif %}<label for="id_{{ campo.name }}">{{ campo.label }}</label>
+                                    {{ campo }}
+                                    <div class="invalid-feedback" id="errorMessage{{ campo.name }}"></div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {% block extra_field %}
+
+                        {% endblock %}
+                        <br><br>
+                        <div class="text-right">
+                            <button id="submit" type="submit" class="btn btn-primary">Guardar</button>
+                            <a href="javascript:history.back()" class="btn btn-danger" type="button">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+
+    <script>
+        var demo2 = $('.dual').bootstrapDualListbox({
+            nonSelectedListLabel: 'No seleccionados',
+            selectedListLabel: 'Seleccionados',
+            preserveSelectionOnMove: 'moved',
+            moveOnSelect: false,
+            {#nonSelectedFilter: 'ion ([7-9]|[1][0-2])'#}
+        });
+    </script>
+
+    <script src="{% static 'libs/editor/js/tinymce/tinymce.dev.js' %}"></script>
+    <script src="{% static 'libs/editor/js/tinymce/plugins/table/plugin.dev.js' %}"></script>
+    <script src="{% static 'libs/editor/js/tinymce/plugins/paste/plugin.dev.js' %}"></script>
+    <script src="{% static 'libs/editor/js/tinymce/plugins/spellchecker/plugin.dev.js' %}"></script>
+    <script src="{% static 'libs/editor/js/tinymce/plugins/codesample/plugin.dev.js' %}"></script>
+    <script src="{% static 'libs/editor/js/tinymce/tinymce.min.js' %}"></script>
+
+    <script>
+        tinymce.init({
+            selector: "textarea#elm1",
+            theme: "modern",
+            plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker codesample"
+            ],
+            external_plugins: {
+                //"moxiemanager": "/moxiemanager-php/plugin.js"
+            },
+            content_css: "editor/css/development.css",
+            add_unload_trigger: false,
+            autosave_ask_before_unload: false,
+            toolbar1: " preview print | undo redo | fontselect fontsizeselect | bold italic underline strikethrough",
+            toolbar2: " alignleft aligncenter alignright alignjustify | forecolor backcolor | bullist numlist | outdent indent | link unlink code ",
+            toolbar3: "table | hr | subscript superscript | charmap | fullscreen",
+            menubar: false,
+            toolbar_items_size: 'small',
+            relative_urls: false,
+            browser_spellcheck : true ,
+
+            codemirror: {
+                indentOnInit: true, // Whether or not to indent code on init.
+                path: 'CodeMirror'
+            },
+            image_advtab: true,
+
+
+            style_formats: [
+                {title: 'Bold text', inline: 'b'},
+                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Table styles'},
+                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+            ],
+
+            templates: [
+                {title: 'My template 1', description: 'Some fancy template 1', content: 'My html'},
+                {title: 'My template 2', description: 'Some fancy template 2', url: 'usuario/home.html'}
+            ],
+
+            spellchecker_callback: function(method, data, success) {
+                if (method == "spellcheck") {
+                    var words = data.match(this.getWordCharPattern());
+                    var suggestions = {};
+
+                    for (var i = 0; i < words.length; i++) {
+                        suggestions[words[i]] = ["First", "second"];
+                    }
+
+                    success({words: suggestions, dictionary: true});
+                }
+
+                if (method == "addToDictionary") {
+                    success();
+                }
+            }
+        });
+    </script>
+{% endblock %}

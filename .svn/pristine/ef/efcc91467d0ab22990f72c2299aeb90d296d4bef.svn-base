@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="card overflow-hidden profile-setting-img">
+                    <div class="profile-user rounded profile-basic">
+                        <div class="bg-overlay bg-primary"></div>
+                        <div class="p-0 ms-auto rounded-circle profile-photo-edit">
+                            <input id="profile-foreground-img-file-input" type="file" class="profile-foreground-img-file-input d-none">
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="position-relative mb-3">
+                            <div class="mt-n5">
+                                <img src="{% if request.session.persona.foto %} {{ request.session.persona.foto.url }} {% else %} {% static 'assets/img/user.png' %} {% endif %}" alt="" class="avatar-lg rounded-circle p-1 bg-card-custom mt-n4">
+                            </div>
+                        </div>
+
+                        <!-- Nav tabs -->
+                        <div class="row align-items-center mt-3 gy-3">
+                            <div class="col-md order-1">
+                                <ul class="nav nav-pills animation-nav gap-2 gap-lg-3 flex-grow-1" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link fs-14 active" data-bs-toggle="tab" href="#personalDetails" role="tab" aria-selected="true">
+                                            <i class="ri-airplay-fill d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Datos personales</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link fs-14" data-bs-toggle="tab" href="#changePassword" role="tab" aria-selected="false" tabindex="-1">
+                                            <i class="ri-list-unordered d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Cambiar contraseña</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--end col-->
+            <div class="col-xxl-12">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="personalDetails" role="tabpanel">
+                                <div class="card-body">
+                                    <form enctype="multipart/form-data" autocomplete="off" method="post" id="formPerfil">
+                                        <input type="text" hidden class="form-control"  name="pet" value="{{ pet }}">
+                                        <input type="text" hidden class="form-control"  name="id" value="{{ reg }}">
+                                        {% csrf_token %}
+
+                                        <div class="row gy-4">
+                                            {% for campo in formPerfil.visible_fields %}
+                                                <div class="form-group {% if campo.field.widget.attrs.col %} col-md-{{ campo.field.widget.attrs.col }} {% else %} col-md-12 {% endif %}" id="grupo_{{ campo.name }}" >
+                                                    {% if campo.field.required %} <span style="color: red">*</span> {% endif %}<label for="id_{{ campo.name }}">{{ campo.label }}</label>
+                                                    {{ campo }}
+                                                    <div class="invalid-feedback" id="errorMessage{{ campo.name }}"></div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+
+                                        {% block extra_field %}
+
+                                        {% endblock %}
+                                        <br><br>
+                                        <div class="text-right">
+                                            <button type="submit" id="actualizarDatos" class="btn btn-primary">Guardar</button>
+                                            <a href="javascript:history.back()" class="btn btn-danger" type="button">Cancelar</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--end tab-pane-->
+                            <div class="tab-pane" id="changePassword" role="tabpanel">
+                                <form enctype="multipart/form-data" autocomplete="off" method="post" id="formCambiarClave">
+                                    <input type="text" name="pet" hidden value="cambiarContraseña">
+                                    {% csrf_token %}
+                                    <div class="row g-2 justify-content-lg-between align-items-center">
+                                        <div class="col-lg-4">
+                                            <div>
+                                                <label for="oldpasswordInput" class="form-label">Contraseña actual*</label>
+                                                <div class="position-relative">
+                                                    <input type="password" name="old_password" class="form-control" id="oldpasswordInput" placeholder="Contraseña actual">
+                                                    <button class="btn btn-link position-absolute top-0 end-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="auth-pass-inputgroup">
+                                                <label for="password-input" class="form-label">Nueva contraseña*</label>
+                                                <div class="position-relative">
+                                                    <input type="password" name="password" class="form-control password-input" id="password-input" onpaste="return false" placeholder="Nueva contraseña" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                    <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="auth-pass-inputgroup">
+                                                <label for="confirm-password-input" class="form-label">Confirmar contraseña*</label>
+                                                <div class="position-relative">
+                                                    <input type="password" class="form-control password-input" onpaste="return false" id="confirm-password-input" placeholder="Confirmar contraseña" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                    <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="confirm-password-inputBo"><i class="ri-eye-fill align-middle"></i></button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="">
+                                                <button type="submit" id="Guardar_contraseña" class="btn btn-success">Confirmar</button>
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+
+                                        <div class="col-lg-12">
+                                            <div class="card bg-light passwd-bg" id="password-contain">
+                                                <div class="card-body">
+                                                    <div class="mb-4">
+                                                        <h5 class="fs-13">Contraseña debe contener:</h5>
+                                                    </div>
+                                                    <div class="">
+                                                        <p id="pass-length" class="invalid fs-12 mb-2">Mínimo <b>8 caracteres</b></p>
+                                                        <p id="pass-lower" class="invalid fs-12 mb-2">Una letra <b>minúscula</b> (a-z)</p>
+                                                        <p id="pass-upper" class="invalid fs-12 mb-2">Una letra <b>mayúscula</b> (A-Z)</p>
+                                                        <p id="pass-number" class="invalid fs-12 mb-0">Al menos un <b>número</b> (0-9)</p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--end row-->
+                                </form>
+
+                            </div>
+                            <!--end tab-pane-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+
+    </div>
+    <!-- container-fluid -->
+{% endblock %}
+
+{% block js %}
+    <script>
+        const _url = window.location.toString().split(window.location.host.toString())[1];
+        const cargando = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Guardando';
+        $('#formPerfil').submit(function (e){
+            e.preventDefault();
+            const btnSubmit = $('#actualizarDatos');
+            var _form = new FormData($(this)[0]);
+            $.ajax({
+                type: "POST",
+                url: _url,
+                data: _form,
+                dataType: "json",
+                enctype: $(this).attr('enctype'),
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    btnSubmit.html(cargando);
+                    btnSubmit.attr("disabled", true);
+                }
+            }).done(function (data) {
+                if (!data.error) {
+                    if (data.to) {
+                        location = data.to;
+                    }
+                } else {
+                    $.notify(data.msj, {type:"warning"});
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                $.notify('Error de conexión con el servidor', {type:"warning"});
+                btnSubmit.html('Guardar');
+                btnSubmit.attr("disabled", false);
+            }).always(function () {
+                btnSubmit.html('Guardar');
+                btnSubmit.attr("disabled", false);
+            });
+        })
+
+
+        $('#formCambiarClave').submit(function (e){
+            e.preventDefault();
+            const btnSubmit = $('#Guardar_contraseña');
+            var p1 = $('#password-input').val()
+            var p2 = $('#confirm-password-input').val()
+            if (p1!=p2){
+                $.notify('La contraseña no coincide', {type:"warning"});
+                return false;
+            }
+            var _form = new FormData($(this)[0]);
+            $.ajax({
+                type: "POST",
+                url: _url,
+                data: _form,
+                dataType: "json",
+                enctype: $(this).attr('enctype'),
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    btnSubmit.html(cargando);
+                    btnSubmit.attr("disabled", true);
+                }
+            }).done(function (data) {
+                if (!data.error) {
+                    if (data.to) {
+                        location = data.to;
+                    }
+                } else {
+                    $.notify(data.msj, {type:"warning"});
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                $.notify('Error de conexión con el servidor', {type:"warning"});
+                btnSubmit.html('Guardar');
+                btnSubmit.attr("disabled", false);
+            }).always(function () {
+                btnSubmit.html('Guardar');
+                btnSubmit.attr("disabled", false);
+            });
+        })
+
+
+    </script>
+
+    <script>
+        Array.from(document.querySelectorAll("form .auth-pass-inputgroup")).forEach(function(s) {
+            Array.from(s.querySelectorAll(".password-addon")).forEach(function(t) {
+                t.addEventListener("click", function(t) {
+                    var e = s.querySelector(".password-input");
+                    "password" === e.type ? e.type = "text" : e.type = "password";
+                });
+            });
+        });
+
+        {#var password = document.getElementById("password-input"), confirm_password = document.getElementById("confirm-password-input");#}
+
+        {#function validatePassword() {#}
+        {#    password.value != confirm_password.value ? confirm_password.setCustomValidity("La contraseña no coincide") : confirm_password.setCustomValidity("");#}
+        {#}#}
+        {##}
+        {#password.onchange = validatePassword;#}
+
+        var myInput = document.getElementById("password-input"), letter = document.getElementById("pass-lower"), capital = document.getElementById("pass-upper"), number = document.getElementById("pass-number"), length = document.getElementById("pass-length");
+
+        myInput.onfocus = function() {
+            document.getElementById("password-contain").style.display = "block";
+        }, myInput.onblur = function() {
+            document.getElementById("password-contain").style.display = "none";
+        }, myInput.onkeyup = function() {
+            myInput.value.match(/[a-z]/g) ? (letter.classList.remove("invalid"), letter.classList.add("valid")) : (letter.classList.remove("valid"),
+                letter.classList.add("invalid")), myInput.value.match(/[A-Z]/g) ? (capital.classList.remove("invalid"),
+                capital.classList.add("valid")) : (capital.classList.remove("valid"), capital.classList.add("invalid"));
+            myInput.value.match(/[0-9]/g) ? (number.classList.remove("invalid"), number.classList.add("valid")) : (number.classList.remove("valid"),
+                number.classList.add("invalid")), 8 <= myInput.value.length ? (length.classList.remove("invalid"),
+                length.classList.add("valid")) : (length.classList.remove("valid"), length.classList.add("invalid"));
+        };
+    </script>
+{% endblock %}

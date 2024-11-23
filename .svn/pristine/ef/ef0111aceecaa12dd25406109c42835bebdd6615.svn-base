@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load extras %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        {% for asignatura in lista %}
+            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
+                <div class="card">
+                    <img class="img-fluid rounded-top" src="{% if asignatura.imagen %}  {{ asignatura.imagen.url}} {% endif %}" alt="">
+                    <div class="card-body">
+                        <h4>{{ asignatura.nombre}}</h4>
+                        <ul class="list-group mb-3 list-group-flush">
+                            <li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0">{{ asignatura.fecha_creacion|date:"d F Y"}}</span>
+                                <a href="javascript:void(0);" class="add-wishlist-btn">
+                                    <i class="la la-heart-o outline"></i>
+                                    <i class="la la-heart fill"></i>
+                                    <span>450</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <span class="mb-0">Duración :</span><strong>12 Months</strong></li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <span class="mb-0">Profesor :</span><strong>Jack Ronan</strong></li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <span><i class="fa fa-graduation-cap text-primary me-2"></i>Estudiantes</span><strong>{{  asignatura.matriculado }}</strong></li>
+                        </ul>
+{#                        <a href="about-courses.html" class="btn btn-primary">Leer más</a>#}
+                        {% with inscrito=asignatura|args:persona|call:"inscrito" %}
+                            {% if inscrito %}
+                                <a href="{% url 'comenzar' %}?id={{ asignatura.codificar }}"  class="btn btn-info pull-right">Ir al curso</a>
+                            {% else %}
+                                <a href="javascript:void(0);" data-value="{{ asignatura.codificar }}" data-pet="inscribir" data-det="Te estás inscribiendo al curso de: " class="btn btn-info pull-right confirmacion">Inscribirme</a>
+                            {% endif %}
+
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+
+    </div>
+
+{% endblock %}

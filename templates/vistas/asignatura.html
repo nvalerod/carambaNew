@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="filter cm-content-box box-primary">
+                <div class="content-title SlideToolHeader">
+                    <div class="cpa">
+                        <i class="fa-sharp fa-solid fa-filter me-2"></i>Filtros de búsqueda
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:void(0);" class="handle expand"><i class="fal fa-angle-down"></i></a>
+                    </div>
+                </div>
+                <div class="cm-content-body form excerpt">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-3 col-sm-6">
+                                <label class="form-label" for="Title">Descripción</label>
+                                <input type="text" name="Title" id="bsqReg" class="form-control mb-xl-0 mb-3" value='{{ busqueda }}' autocomplete="off" placeholder="Nombre/Descripción">
+                            </div>
+                            <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                <label class="form-label">Estado</label>
+                                <select class="form-control default-select h-auto wide" aria-label="Default select example">
+                                    <option selected>Todos</option>
+                                    <option value="1">Activos</option>
+                                    <option value="2">Inactivos</option>
+                                </select>
+                            </div>
+
+                            <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                <label class="form-label">Tipo</label>
+                                <select class="form-control default-select h-auto wide" aria-label="Default select example">
+                                    <option selected>Todos</option>
+                                    <option value="1">Principal</option>
+                                    <option value="2">Secundarios</option>
+                                </select>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6 align-self-end mb-sm-3 mb-xl-0">
+                                <div>
+                                    <button class="btn btn-primary light me-1" title="Click aquí para buscar" id="buscar" type="button"><i class="fa fa-filter me-1"></i>Buscar</button>
+                                    <button class="btn btn-danger light  {% if not busqueda %} disabled {% endif %}" title="Click aquí para remover el filtro" id="limpiar" type="button">Remover filtro</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if agregar %}
+                <div class="mb-5">
+                    <a href="{{ ruta }}?pet=crear" class="btn btn btn-primary"><i class="fa fa-plus"></i> <i class="ri-add-line align-bottom me-1"></i> Adicionar</a>
+                </div>
+            {% endif %}
+            <div class="filter cm-content-box box-primary">
+                <div class="content-title SlideToolHeader">
+                    <div class="cpa">
+                        <i class="fa-solid fa-file-lines me-1"></i>Lista de {{ migas }}
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:void(0);" class="expand handle"><i class="fal fa-angle-down"></i></a>
+                    </div>
+                </div>
+                <div class="cm-content-body form excerpt">
+                    <div class="card-body py-3">
+                        <div class="table-responsive">
+                            <table class="table text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Nivel</th>
+                                    <th>Imagen</th>
+                                    <th class="text-end">Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for list in lista %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ list.nombre }}</td>
+                                        <td>{{ list.descripcion }}</td>
+                                        <td>{{ list.nivel.nombre }}</td>
+                                        <td>
+                                            <img class="me-3 img-fluid " width="35" src="{% if list.imagen %} {{ list.imagen.url }} {% endif %}" alt="">
+                                        </td>
+                                        <td class="text-end">
+                                            <div class="dropdown custom-dropdown">
+                                                <div class="btn sharp btn-primary tp-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24" height="24"></rect>
+                                                            <circle fill="#000000" cx="12" cy="5" r="2"></circle>
+                                                            <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                                            <circle fill="#000000" cx="12" cy="19" r="2"></circle>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <div class="dropdown-menu dropdown-menu-right" style="">
+                                                    <li><a class="dropdown-item" href="{{ ruta }}?pet=verContenido&id={{ list.codificar }}"><i class="fa fa-eye"></i> Ver contenido</a></li>
+                                                    {% if editar %}
+                                                        <li><a class="dropdown-item" href="{{ ruta }}?pet=editar&id={{ list.codificar }}"><i class="fa fa-pencil-alt"></i> Editar</a></li>
+                                                    {% endif %}
+                                                    {% if eliminar %}
+                                                        <li><a class="dropdown-item eliminar" href="javascript:void(0);" data-value = '{{ list.codificar }}' data-pet = 'eliminar'><i class="fa fa-trash"></i> Eliminar</a></li>
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                {% if not lista %}
+                                    <tr class="text-center">
+                                        <td colspan="6">No existen registros</td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                            <div class="d-flex align-items-center justify-content-between flex-column flex-lg-row py-3">
+
+                                <small class="mb-xl-0 mb-2">
+                                    {% for i in obj_pag.paginator.page_range %}
+                                        {% if obj_pag.number == i %}
+                                            Estas visualizando la página {{ i }} de {{ obj_pag.paginator.num_pages }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </small>
+
+                                <div class="d-flex justify-content-end">
+                                    {% include "pagination.html" %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block js %}
+    <script>
+        $( document ).on( 'click', '#limpiar', function(){
+            location.href = "{{ruta}}";
+        });
+        $("#buscar").click(function() {
+            var registro = $("#bsqReg").val().toUpperCase();
+            location.href = "{{ruta}}?s="+registro;
+        });
+
+        $('#bsqReg').keyup(function(e) {
+            if(e.keyCode == 13) {
+                $("#buscar").trigger("click");
+            }
+        });
+
+    </script>
+{% endblock %}

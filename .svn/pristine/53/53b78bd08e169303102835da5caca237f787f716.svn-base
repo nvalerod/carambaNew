@@ -1,0 +1,117 @@
+# -*- coding: UTF-8 -*-
+from django.core import signing
+from django.core.paginator import Paginator
+from django.shortcuts import render, HttpResponseRedirect, redirect
+from django.db import transaction
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.contrib import messages
+from .forms import EvaluacionForms
+from .models import Asignatura, Inscripcion, Ejercicio, Evaluacion
+from .funciones import codificar
+from django.db.models import Q
+from datetime import datetime
+
+
+@transaction.atomic()
+@login_required(redirect_field_name='res',login_url='/login')
+def view(request):
+    global ex
+    data = {}
+    # model = Menu
+    # nombre_app, nombre_model = model._meta.app_label, model._meta.model_name
+    # data['agregar'] = agregar = request.user.has_perm('{}.add_{}'.format(nombre_app, nombre_model))
+    # data['editar'] = editar = request.user.has_perm('{}.change_{}'.format(nombre_app, nombre_model))
+    # data['eliminar'] = eliminar = request.user.has_perm('{}.delete_{}'.format(nombre_app, nombre_model))
+    # data['ver'] = ver = request.user.has_perm('{}.view_{}'.format(nombre_app, nombre_model))
+    data['ruta'] = ruta = request.path
+    data['titulo'] = 'Ejercicios'
+    data['modulo'] = ruta
+    data['migas'] = str(ruta).replace('/',"")
+    data['accion'] = request.GET['pet'] if 'pet' in request.GET else ""
+    data['persona'] = persona = request.session['persona']
+
+    if request.method == 'POST':
+        pet = request.POST['pet']
+        if pet == 'inscribir':
+            try:
+                asignatura = Asignatura.objects.get(pk=codificar(request.POST['id']))
+                if Inscripcion.objects.filter(persona=persona, asignatura = asignatura).exists():
+                    return JsonResponse({"error": True, 'msj': 'Usted ya se encuentra inscrito en esta asignatura'})
+                else:
+                    inscripcion = Inscripcion(
+                        persona=persona,
+                        asignatura= asignatura
+                    )
+                    inscripcion.save(request)
+                    messages.success(request, 'Registro Guardado Exitosamente')
+                    return JsonResponse({"error": False,'msj':'Se ha inscrito exitosamente'})
+            except Exception as ex:
+                pass
+            return HttpResponseRedirect(ruta)
+
+        elif pet == 'evaluar':
+            try:
+                with transaction.atomic():
+                    form = EvaluacionForms(request.POST)
+                    if form.is_valid():
+                        evaluacion = Evaluacion(
+                            persona=persona,
+                            ejercicio = Ejercicio.objects.get(id=codificar(form.cleaned_data['ejercicio'])),
+                            duracion = form.cleaned_data['duracion'],
+                            gusto = form.cleaned_data['gusto'],
+                            dificultad = form.cleaned_data['dificultad'],
+                            calificacion = 0,
+                            abstraction = 0,
+                            paralelismo = 0,
+                            pensaminetoLogico = 0,
+                            sincronizacion = 0,
+                            controFlujo = 0,
+                            interactividadUsuario = 0,
+                            representacionInformacion = 0,
+                        )
+
+                        if 'archivo' in request.FILES:
+                            evaluacion.archivo = request.FILES['archivo']
+                        else:
+                            return JsonResponse({"error": True, 'msj': 'Debe seleccionar un archivo', "to": ruta})
+
+                        evaluacion.save(request)
+
+                        messages.success(request, 'Registro Guardado Exitosamente')
+                        return JsonResponse({"error": False, "to": '/'})
+                    else:
+                        return JsonResponse({"error": True,'msj':'formulario no válido', "to": ruta})
+            except Exception as ex:
+                transaction.set_rollback(True)
+                return JsonResponse({"error": True, "msj": str(ex), "to": ruta})
+    else:
+        if 'pet' in request.GET:
+            pet = request.GET['pet']
+
+            if pet == 'inscribir':
+                try:
+                    with transaction.atomic():
+                        asignatura = Asignatura.objects.get(id=codificar(request.GET['id']))
+                        return JsonResponse({"error": False, "dato": asignatura.nombre})
+                except Exception as ex:
+                    transaction.set_rollback(True)
+                    return JsonResponse({"error": True, "to": ruta})
+
+        else:
+            try:
+                with transaction.atomic():
+
+
+                    data['ejercicios'] = Ejercicio.objects.filter(asignatura_id = codificar(request.GET['id']))
+                    data['resolver'] = resolver = Ejercicio.objects.filter(asignatura_id = codificar(request.GET['id'])).first()
+                    data['pet'] = 'evaluar'
+
+
+                    data['form'] = EvaluacionForms(initial={
+                        'ejercicio': resolver.codificar()
+                    })
+                    return render(request, 'vistas/comenzar.html', data)
+            except Exception as ex:
+                transaction.set_rollback(True)
+                return JsonResponse({"error": True, "to": ruta})

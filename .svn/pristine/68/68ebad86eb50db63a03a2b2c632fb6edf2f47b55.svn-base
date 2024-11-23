@@ -1,0 +1,53 @@
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if obj_pag.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ obj_pag.previous_page_number }}{% if busqueda %}&s={{ busqueda }}{% endif %}">
+                    <i class="fa-solid fa-angle-left"></i>
+                </a>
+            </li>
+
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                    <i class="fa-solid fa-angle-left"></i>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if obj_pag.number|add:'-4' > 1 %}
+            <li class="page-item"><a class="page-link" href="?page={{ obj_pag.number|add:'-5'}}{% if busqueda %}&s={{ busqueda }}{% endif %}">&hellip;</a></li>
+        {% endif %}
+
+        {% for i in obj_pag.paginator.page_range %}
+            {% if obj_pag.number == i %}
+                <li class="page-item active" aria-current="page">
+              <span class="page-link">
+                {{ i }}
+              </span>
+                </li>
+            {% elif i > obj_pag.number|add:'-5' and i < obj_pag.number|add:'5' %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}{% if busqueda %}&s={{ busqueda }}{% endif %}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if obj_pag.paginator.num_pages > obj_pag.number|add:'4' %}
+            <li class="page-item"><a class="page-link" href="?page={{ obj_pag.number|add:'5' }}{% if busqueda %}&s={{ busqueda }}{% endif %}">&hellip;</a></li>
+        {% endif %}
+
+        {% if obj_pag.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ obj_pag.next_page_number }}{% if busqueda %}&s={{ busqueda }}{% endif %}">
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
